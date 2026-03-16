@@ -7,9 +7,9 @@ from src.processing import sort_by_date
 
 __name__ = "main"
 
-print(get_mask_card_number(7000792289606361))  # 7000 79** **** 6361
-print(get_mask_account(73654108430135874305))  # **4305
-print(mask_account_card('Счет 64686473678894779589'))
+print(get_mask_card_number("7000792289606361"))  # 7000 79** **** 6361
+print(get_mask_account("123"))  # **4305
+print(mask_account_card("Счет 64686473678894779589"))
 print(get_date("2024-03-11T02:26:18.671407"))
 print(filter_by_state([
     {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},

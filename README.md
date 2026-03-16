@@ -11,7 +11,7 @@
 + Установите на свой компьютер GitHub.
 + Клонируйте репозиторий с GitHub  с помощью веб-URL.
 ```
- git clone git@github.com:den-solodovnikov/project_10.1.git
+ git clone git@github.com:den-solodovnikov/HomeWork_10_2.git
 ```
 
 
@@ -32,7 +32,7 @@
 
      Пример: 7000792289606361 → 7000 79** **** 6361
 
-**get_mask_account(account_number: int) -> str**
+**get_mask_account(account_number: str) -> str**
 
 Принимает на вход номер счета и возвращает маску номера по правилу **XXXX
 
