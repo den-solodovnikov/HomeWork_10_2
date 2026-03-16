@@ -69,4 +69,3 @@ for _ in range(2):
 descriptions = transaction_descriptions(transactions)
 for _ in range(2):
     print(next(descriptions))
-

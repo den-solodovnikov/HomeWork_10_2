@@ -24,5 +24,5 @@ def mask_account_card(number_account: str) -> str:
 def get_date(date_str: str) -> str:
     """ Возвращает строку с датой в формате "ДД.ММ.ГГГГ" """
     # new_date = '.'.join(reversed(date_str[0:10].split('-')))
-    new_date = re.sub(r"(\d+).(\d+).(\d+)",r"\3.\2.\1", date_str)
+    new_date = re.sub(r"(\d+).(\d+).(\d+)", r"\3.\2.\1", date_str)
     return new_date

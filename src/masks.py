@@ -6,7 +6,9 @@ def get_mask_card_number(card_number: str) -> str:
     new_card_number = card_number.replace(" ", "")
     if not new_card_number.isdigit():
         raise TypeError("Не верный тип номера карты")
-    return f"{new_card_number[:4]} {new_card_number[4:6]}** **** {new_card_number[-4:]}"
+    return (f"{new_card_number[:4]} "
+            f"{new_card_number[4:6]}** **** "
+            f"{new_card_number[-4:]}")
 
 
 def get_mask_account(account_number: str) -> str:

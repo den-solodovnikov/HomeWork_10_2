@@ -62,4 +62,4 @@ def test_filter_by_state_no_param_state(list_dict_test):
                          ]
                         )
 def test_sort_by_date(list_dict, revers_order, expected):
-     assert sort_by_date(list_dict, revers_order) == expected
+    assert sort_by_date(list_dict, revers_order) == expected

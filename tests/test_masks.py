@@ -1,5 +1,7 @@
 import pytest
-from src.masks import get_mask_card_number, get_mask_account
+
+from src.masks import get_mask_account, get_mask_card_number
+
 
 @pytest.mark.parametrize("card_number, expected",
                          [("7000792289606361", "7000 79** **** 6361"),
@@ -12,9 +14,11 @@ from src.masks import get_mask_card_number, get_mask_account
 def test_get_mask_card_number(card_number: str, expected: str):
     assert get_mask_card_number(card_number) == expected
 
+
 def test_get_mask_card_number_type_error():
     with pytest.raises(TypeError):
         get_mask_card_number("4562kisj.64")
+
 
 @pytest.mark.parametrize("account_number, expected",
                          [("73654108430135874305", "**4305"),
