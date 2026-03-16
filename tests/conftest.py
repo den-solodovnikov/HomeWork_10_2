@@ -11,8 +11,7 @@ def list_dict_test():
 
 @pytest.fixture
 def transactions_() -> list[dict]:
-    return (
-    [
+    return ([
         {
             "id": 939719570,
             "state": "EXECUTED",

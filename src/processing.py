@@ -13,7 +13,7 @@ def filter_by_state(list_dict: list[dict], state: str = 'EXECUTED') \
     return list_filtered_by_sort
 
 
-def sort_by_date(list_dict: list[dict], revers_order: bool=True) -> list[dict]:
+def sort_by_date(list_dict: list[dict], revers_order: bool = True) -> list[dict]:
     """ Функция возвращает отсортированный список словарей по дате. """
     list_sort_by_date: list[dict] = []
     for item in list_dict:
