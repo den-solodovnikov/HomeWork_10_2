@@ -9,16 +9,22 @@ def log(filename=''):
         def wrapper(*args, **kwargs):
             time_start = time()
             try:
-                func(*args, **kwargs)
+                result = func(*args, **kwargs)
                 data_log = f'{func.__name__} OK'
+                if filename:
+                    with open(filename, 'w', encoding='utf-8') as f:
+                        f.write(data_log)
+                else:
+                    print(data_log)
+                return result
             except Exception as e:
                 data_log = f'{func.__name__} error: {e}. Inputs: {args}, {kwargs}'
+                if filename:
+                    with open(filename, 'w', encoding='utf-8') as f:
+                        f.write(data_log)
+                else:
+                    print(data_log)
             time_finish = time()
-            if filename == '':
-                print(data_log)
-            else:
-                with open(filename, 'w', encoding='utf-8') as f:
-                    f.write(data_log)
         return wrapper
     return decorator
 
@@ -28,4 +34,4 @@ def my_function(x, y):
     return x + y
 
 
-my_function(1, '2')
+print(my_function(1, 2))
