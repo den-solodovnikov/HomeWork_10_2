@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from src.masks import get_mask_account
 from src.masks import get_mask_card_number
 from src.widget import get_date
@@ -6,6 +8,9 @@ from src.processing import filter_by_state
 from src.processing import sort_by_date
 from src.generators import (filter_by_currency, transaction_descriptions,
                             card_number_generator)
+from src.utils import amount_transactions
+from src.utils import data_transactions
+
 
 __name__ = "main"
 
@@ -69,3 +74,21 @@ for _ in range(2):
 descriptions = transaction_descriptions(transactions)
 for _ in range(2):
     print(next(descriptions))
+
+print(amount_transactions(
+    {
+        "id": 41428829,
+        "state": "EXECUTED",
+        "date": "2019-07-03T18:35:29.512364",
+        "operationAmount": {
+            "amount": "8221.37",
+            "currency": {
+                "name": "USD",
+                "code": "USD"
+            }
+        },
+        "description": "Перевод организации",
+        "from": "MasterCard 7158300734726758",
+        "to": "Счет 35383033474447895560"
+    }
+))
