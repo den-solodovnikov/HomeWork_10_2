@@ -2,7 +2,6 @@ from pathlib import Path
 import pandas as pd
 
 
-
 def read_transactions_from_csv(path_name: str) -> list[dict]:
     """ Функция принимает путь к файлу CSV и выдает список словарей с транзакциями. """
     path_name = Path(path_name)

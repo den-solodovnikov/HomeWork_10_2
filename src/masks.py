@@ -13,12 +13,12 @@ logger.addHandler(file_handler)
 def get_mask_card_number(card_number: str) -> str:
     """ Функция принимает на вход номер карты в виде строки
     и возвращает маску номера по правилу XXXX XX** **** XXXX. """
-    logger.info(f'Проверка на ввод не пустой строки номера карты')
+    logger.info('Проверка на ввод не пустой строки номера карты')
     if card_number == "":
         logger.error(f'Введенна пустая строка номера карты {card_number}')
         return ""
     new_card_number = card_number.replace(" ", "")
-    logger.info(f'Проверка на корректность введенных данных номера карты')
+    logger.info('Проверка на корректность введенных данных номера карты')
     if not new_card_number.isdigit():
         logger.error(f'Введены данные карты не верного типа: {new_card_number}')
         raise TypeError("Не верный тип номера карты")
@@ -31,12 +31,12 @@ def get_mask_card_number(card_number: str) -> str:
 def get_mask_account(account_number: str) -> str:
     """ Функция принимает на вход номер счета в виде строки
     и возвращает маску номера по правилу **XXXX. """
-    logger.info(f'Проверка на ввод не пустой строки счета')
+    logger.info('Проверка на ввод не пустой строки счета')
     if account_number == "":
         logger.error(f'Введенна пустая строка счета {account_number}')
         return ""
     new_account_number = account_number.replace(" ", "")
-    logger.info(f'Проверка на корректность введенных данных номера счета')
+    logger.info('Проверка на корректность введенных данных номера счета')
     if not new_account_number.isdigit():
         logger.error(f'Введены данные не верного типа счета: {account_number}')
         raise TypeError("Не верный тип номера счета")

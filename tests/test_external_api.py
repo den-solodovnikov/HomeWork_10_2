@@ -12,6 +12,7 @@ def test_currency_conversion_pass(mock_get):
     assert currency_conversion('USD', 8) == 7788.7788
     mock_get.assert_called_once()
 
+
 @patch('requests.get')
 def test_currency_conversion_filed(mock_get):
     mock_response = Mock()

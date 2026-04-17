@@ -12,6 +12,7 @@ file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(m
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
+
 def data_transactions(path_json: str) -> list[dict]:
     """ Функция принимает на вход путь до JSON-файла и возвращает список словарей с данными о финансовых транзакциях.
     Если файл пустой, содержит не список или не найден, функция возвращает пустой список. """
@@ -47,4 +48,3 @@ def amount_transactions(transaction: dict) -> float:
         logger.info('Сумма получена успешно конвертацией в RUB')
         amount = currency_conversion(currency_code, transaction['operationAmount']['amount'])
     return amount
-
