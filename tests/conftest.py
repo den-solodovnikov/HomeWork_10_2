@@ -1,5 +1,7 @@
 import pytest
 
+PATH_TO_FILE = 'data/'
+
 
 @pytest.fixture
 def list_dict_test():

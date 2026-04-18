@@ -1,4 +1,4 @@
-from src.decorators import log, my_function
+from src.decorators import log
 
 
 def test_log_err(capsys):
@@ -6,9 +6,10 @@ def test_log_err(capsys):
     def example_function(x, y):
         return x + y
 
-    example_function(1,'2')
+    example_function(1, '2')
     captured = capsys.readouterr()
-    assert captured.out == "example_function error: unsupported operand type(s) for +: 'int' and 'str'. Inputs: (1, '2'), {}\n"
+    assert captured.out == ("example_function error: unsupported operand type(s) for +: "
+                            "'int' and 'str'. Inputs: (1, '2'), {}\n")
 
 
 def test_log_ok(capsys):
@@ -26,10 +27,11 @@ def test_log_err_in_file():
     def example_function(x, y):
         return x + y
 
-    example_function(1,'2')
+    example_function(1, '2')
     with open('mylog.txt', 'r', encoding='utf-8') as f:
         content = f.read()
-        assert content == "example_function error: unsupported operand type(s) for +: 'int' and 'str'. Inputs: (1, '2'), {}"
+        assert content == ("example_function error: unsupported operand type(s) for +: "
+                           "'int' and 'str'. Inputs: (1, '2'), {}")
 
 
 def test_log_ok_in_file():
@@ -37,7 +39,7 @@ def test_log_ok_in_file():
     def example_function(x, y):
         return x + y
 
-    example_function(1,2)
+    example_function(1, 2)
     with open('mylog.txt', 'r', encoding='utf-8') as f:
         content = f.read()
         assert content == "example_function OK"

@@ -7,7 +7,6 @@ def log(filename=''):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            time_start = time()
             try:
                 result = func(*args, **kwargs)
                 data_log = f'{func.__name__} OK'
@@ -24,7 +23,6 @@ def log(filename=''):
                         f.write(data_log)
                 else:
                     print(data_log)
-            time_finish = time()
         return wrapper
     return decorator
 

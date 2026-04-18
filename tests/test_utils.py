@@ -16,5 +16,3 @@ def test_amount_transactions_eur_usd(mock_conversion, transaction_usd):
     mock_conversion.return_value = 28555.55
     assert amount_transactions(transaction_usd) == 28555.55
     mock_conversion.assert_called_once()
-
-
