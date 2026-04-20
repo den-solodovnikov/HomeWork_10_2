@@ -1,5 +1,4 @@
 from functools import wraps
-from time import time
 
 
 def log(filename=''):
