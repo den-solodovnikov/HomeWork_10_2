@@ -9,7 +9,7 @@ def search_description(transactions: list[dict], descript_word: str) -> list[dic
     transactions_result = []
     pattern = re.compile(descript_word, re.IGNORECASE)
     for transaction in transactions:
-        if pattern.search(transaction.get('description', '')):
+        if pattern.search(str(transaction.get('description', ''))):
             transactions_result.append(transaction)
     return transactions_result
 
