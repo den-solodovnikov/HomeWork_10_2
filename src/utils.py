@@ -3,7 +3,6 @@ import logging
 
 from src.external_api import currency_conversion
 
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 file_handler = logging.FileHandler("logs/utils.log", encoding="utf-8", mode="w")
@@ -46,5 +45,5 @@ def amount_transactions(transaction: dict) -> float:
         amount = float(transaction['operationAmount']['amount'])
     elif currency_code == 'USD' or currency_code == 'EUR':
         logger.info('Сумма получена успешно конвертацией в RUB')
-        amount = currency_conversion(currency_code, transaction['operationAmount']['amount'])
+        amount = currency_conversion(currency_code, float(transaction['operationAmount']['amount']))
     return amount

@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import pandas as pd
 
 
@@ -10,7 +11,7 @@ def read_transactions_from_csv(path_name: str) -> list[dict]:
         raise FileNotFoundError(path_name.name)
 
     try:
-        df_csv = pd.read_csv(path_name)
+        df_csv = pd.read_csv(path_name, delimiter=';')
         transactions_list = df_csv.to_dict(orient='records')
     except ValueError as e:
         raise e

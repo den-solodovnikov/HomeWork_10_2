@@ -1,96 +1,71 @@
 from pprint import pprint
 
+from src.summary_data import search_description
+from src.utils import data_transactions
 from transactions_from_csv_xls import read_transactions_from_csv, read_transactions_from_xls
 
-from src.masks import get_mask_account
-from src.masks import get_mask_card_number
-from src.widget import get_date
-from src.widget import mask_account_card
-from src.processing import filter_by_state
-from src.processing import sort_by_date
-from src.generators import (filter_by_currency, transaction_descriptions,
-                            card_number_generator)
-from src.utils import amount_transactions
-from src.utils import data_transactions
 
-if __name__ == '__main__':
-    pprint(read_transactions_from_xls('data/transactions_excel.xlsx'))
-# print(get_mask_account(''))  # **4305
-# print(get_mask_card_number('87985555231345658624'))  # 7000 79** **** 6361
-# # print(mask_account_card('Счет 64686473678894779589'))
-# # print(get_date("2024-03-11T02:26:18.671407"))
-# # print(filter_by_state([
-# #     {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
-# #     {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
-# #     {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
-# #     {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}
-# #     ], 'CANCELED'
-# # ))
-# # print(sort_by_date([
-# #     {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
-# #     {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'},
-# #     {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
-# #     {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}
-# # ], False))
-# #
-# # transactions = [{
-# #           "id": 939719570,
-# #           "state": "EXECUTED",
-# #           "date": "2018-06-30T02:08:58.425572",
-# #           "operationAmount": {
-# #               "amount": "9824.07",
-# #               "currency": {
-# #                   "name": "USD",
-# #                   "code": "USD"
-# #               }
-# #           },
-# #           "description": "Перевод организации",
-# #           "from": "Счет 75106830613657916952",
-# #           "to": "Счет 11776614605963066702"
-# #       },
-# #       {
-# #           "id": 142264268,
-# #           "state": "EXECUTED",
-# #           "date": "2019-04-04T23:20:05.206878",
-# #           "operationAmount": {
-# #               "amount": "79114.93",
-# #               "currency": {
-# #                   "name": "USD",
-# #                   "code": "USD"
-# #                   }
-# #               },
-# #           "description": "Перевод со счета на счет",
-# #           "from": "Счет 19708645243227258542",
-# #           "to": "Счет 75651667383060284188"
-# #        }]
-# #
-# # for card_number in card_number_generator(1, 100):
-# #     print(card_number)
-# #
-# # usd_transactions = filter_by_currency(transactions, "USD")
-# # for _ in range(2):
-# #     print('Djn')
-# #     print(next(usd_transactions))
-# #
-# # descriptions = transaction_descriptions(transactions)
-# # for _ in range(2):
-# #     print(next(descriptions))
-# #
-# print(amount_transactions(
-#     {
-#         "id": 41428829,
-#         "state": "EXECUTED",
-#         "date": "2019-07-03T18:35:29.512364",
-#         "operationAmount": {
-#             "amount": "8221.37",
-#             "currency": {
-#                 "name": "USD",
-#                 "code": "USD"
-#             }
-#         },
-#         "description": "Перевод организации",
-#         "from": "MasterCard 7158300734726758",
-#         "to": "Счет 35383033474447895560"
-#     }
-# ))
-# print(data_transactions('data/operations.json'))
+def main() -> None:
+    """ Функция приветствия интерактивно связывает функциональности между собой. """
+    print('Привет! Добро пожаловать в программу работы с банковскими транзакциями.')
+    print('Выберите необходимый пункт меню:\n'
+          '1. Получить информацию о транзакциях из JSON-файла\n'
+          '2. Получить информацию о транзакциях из CSV-файла\n'
+          '3. Получить информацию о транзакциях из XLSX-файла\n')
+    tipe_file = input()
+    if tipe_file == '1':
+        transactions = data_transactions('data/operations.json')
+        print('Для обработки Выбран JSON-файл')
+    elif tipe_file == '2':
+        transactions = read_transactions_from_csv('data/transactions.csv')
+        print('Для обработки выбран CSV-файл')
+    elif tipe_file == '3':
+        transactions = read_transactions_from_xls('data/transactions_excel.xlsx')
+        print('Для обработки выбран EXCEL-файл')
+    else:
+        return print('Не выбран тип файла транзакций')
+
+
+    states = ['EXECUTED', 'CANCELED', 'PENDING']
+    state_in = ''
+    flag = True
+    while flag:
+        state_in = input('Введите статус, по которому необходимо выполнить фильтрацию.\n'
+                   '(доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING):\n')
+        for state in states:
+            if state_in.lower() in state.lower():
+                state_in = state
+                flag = False
+        if flag:
+            print(f'Статус операции {state_in} недоступен')
+
+    transactions_filtered = [transaction for transaction in transactions if transaction.get('state') == state_in]
+    print(f'Операции отфильтрованы по статусу: {state_in.upper()}\n')
+
+    if input('Отсортировать операции по дате? Да/Нет\n').lower() == 'да':
+        if input('Отсортировать по возрастанию или по убыванию?\n').lower() in 'по убыванию':
+            transactions_filtered = sorted(transactions_filtered, key=lambda x: x['date'], reverse=True)
+        else:
+            transactions_filtered = sorted(transactions_filtered, key=lambda x: x['date'], reverse=False)
+
+    if input('Выводить только рублевые транзакции? Да/Нет\n').lower() == 'да':
+        transactions_filtered = [transaction for transaction in transactions
+                                 if transaction['operationAmount']['currency'].get('code', '').lower() == 'rub']
+
+    if input('Отфильтровать список транзакций по определенному слову в описании? Да/Нет\n').lower() == 'да':
+        descript_word = input('Введите слово для фильтрации по описанию: \n')
+        transactions_result = search_description(transactions_filtered, descript_word)
+    else:
+        transactions_result = transactions_filtered
+    print('Распечатываю итоговый список транзакций...\n')
+    if transactions_result:
+        print(f'Всего банковских операций в выборке: {len(transactions_result)}\n')
+        pprint(transactions_result)
+        return None
+    else:
+        print('Не найдено ни одной транзакции, подходящей под ваши условия фильтрации')
+        return None
+
+
+if __name__ == "__main__":
+    main()
